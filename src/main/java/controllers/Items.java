@@ -79,8 +79,6 @@ public class Items{
             PreparedStatement ps = Main.db.prepareStatement("UPDATE Items SET ItemName = ? WHERE ItemID = ?");
             ps.setString(1, ItemName);
             ps.setInt(2, ItemID);
-            ps.setString(3, Lore);
-            ps.setString(4, Class);
             ps.execute();
             return "{\"OK\": \"Items updated\"}";
         } catch (Exception exception) {
@@ -113,12 +111,13 @@ public class Items{
         System.out.println("Invoked Items.Items.SpecificList()");
         JSONArray response = new JSONArray();
         try {
-            PreparedStatement ps = Main.db.prepareStatement("SELECT ItemName FROM Items WHERE ItemType = ? ORDER BY ItemName ASC");
+            PreparedStatement ps = Main.db.prepareStatement("SELECT ItemName, ItemType FROM Items WHERE ItemType = ? ORDER BY ItemName ASC");
             ps.setString(1, ItemType);
             ResultSet results = ps.executeQuery();
             while (results.next()==true) {
                 JSONObject row = new JSONObject();
                 row.put("ItemName", results.getString(1));
+                row.put("ItemType", results.getString(2));
                 response.add(row);
             }
             return response.toString();

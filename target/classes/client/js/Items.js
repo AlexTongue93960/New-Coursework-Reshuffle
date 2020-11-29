@@ -79,25 +79,18 @@ function getWeaponsList() {
 function formatWeaponsList(myJSONArray){
     let dataHTML = "";
     for (let item of myJSONArray) {
-        dataHTML += "<tr><td>" + "<button onclick='clearTable(); setItemStats(" + JSON.stringify(item.ItemName) + ")'>" + item.ItemName + "</button>" + "<tr><td>";
+        dataHTML += "<tr><td>" + "<button onclick='clearTable(); setItemStats(" + JSON.stringify(item.ItemName) + ", " + JSON.stringify(item.ItemType) + ")'>" + item.ItemName +"</button>" + "<tr><td>";
     }
     document.getElementById("ItemsTable").innerHTML = dataHTML;
 }
 
-function setItemStats(strung){
+function setItemStats(Name, Type){
     let dataHTML = "";
     let Table = document.getElementById("StatName");
-    dataHTML = "<tr><td>" + strung +"<tr><td>";
+    dataHTML = "<tr><td>" + Name +"<tr><td>" + "<tr><td>" + Type +"<tr><td>";
     Table.innerHTML = dataHTML;
 }
 
-
-function printItemName(){
-    let currentItem = localStorage.getItem("currentItem");
-    let dataHTML = "";
-    dataHTML += "<tr><td>" + currentItem + "<tr><td>";
-    document.getElementById("title").innerHTML = dataHTML;
-}
 
 function clearTable(){
     let Table = document.getElementById("ItemsTable");
